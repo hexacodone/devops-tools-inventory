@@ -1,9 +1,9 @@
 # Security Tools Overview
 
 ## Network Security
-- Nmap
-- Wireshark
+- Nmap: Port scanning
+- Wireshark: Traffic analysis
 
-## Vulnerability Scanning
-- Nessus
-- OpenVAS
+## Vulnerability Management
+- Nessus: Vulnerability scanning
+- OpenVAS: Security assessment
