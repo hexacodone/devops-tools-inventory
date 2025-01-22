@@ -31,3 +31,10 @@ A list of essential DevOps tools and their use cases
 - ELK Stack
   - Purpose: Log aggregation and analysis
   - Key Features: Log parsing, full-text search, visualization
+
+# DevOps Tools Inventory
+
+[CI/CD Tools Comparison](docs/ci-cd-comparison.md)
+
+## Categories
+...
