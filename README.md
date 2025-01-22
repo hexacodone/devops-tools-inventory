@@ -18,3 +18,16 @@ A list of essential DevOps tools and their use cases
 - Terraform
   - Purpose: Infrastructure provisioning
   - Key Features: State management, provider ecosystem
+
+  ### Monitoring & Observability
+- Prometheus
+  - Purpose: Metrics collection and alerting
+  - Key Features: Time-series database, PromQL, alerting rules
+
+- Grafana
+  - Purpose: Metrics visualization and dashboards
+  - Key Features: Dashboard templates, alerting, data source integration
+
+- ELK Stack
+  - Purpose: Log aggregation and analysis
+  - Key Features: Log parsing, full-text search, visualization
