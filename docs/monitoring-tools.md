@@ -1,10 +1,10 @@
 # Monitoring Stack Documentation
 
 ## Prometheus
-- Installation
-- Configuration
-- Service Discovery
-- Alert Rules
+- Basic Installation Steps
+- Simple Configuration
+- Local Service Discovery
+- Basic Alert Rules Setup
 
 ## Grafana
 - Advanced Dashboard Setup
