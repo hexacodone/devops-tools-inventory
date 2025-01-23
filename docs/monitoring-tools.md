@@ -7,6 +7,7 @@
 - Alert Rules
 
 ## Grafana
-- Dashboard Setup
-- Data Sources
-- Alert Configuration
+- Advanced Dashboard Setup
+- Multiple Data Sources
+- Custom Alert Rules
+- User Management
