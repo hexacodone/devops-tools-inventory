@@ -2,7 +2,7 @@
 
 ## A
 
-**A* Algorithm** - An algorithm that finds the shortest path between two nodes and uses a heuristic function to optimize performance.
+**A\* Algorithm** - An algorithm that finds the shortest path between two nodes and uses a heuristic function to optimize performance.
 
 **Absolute Error** - The actual difference between a measured value and the true value.
 
