@@ -323,4 +323,4 @@ Sie haben jetzt eine professionelle Zsh-Umgebung mit:
 
 ---
 
-*Diese Anleitung basiert auf einer erfolgreichen Installation und enthält alle notwendigen Schritte für eine vollständige Zsh-Einrichtung.*
+*Diese Anleitung basiert auf einer erfolgreichen Installation und enthält alle notwendigen Schritte für eine vollständige ZSH-Einrichtung.*
