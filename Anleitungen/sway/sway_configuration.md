@@ -54,7 +54,7 @@ set $down j
 set $up k
 set $right l
 set $term foot
-set $menu bemenu-run
+set $menu bemenu-run # or ¨wofi --show drun¨ for more convenience 
 
 include /etc/sway/config-vars.d/*
 
