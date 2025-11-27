@@ -1,0 +1,7 @@
+background-color=#2B2D42
+text-color=#89CE94
+border-color=#197278
+border-size=2
+border-radius=5
+default-timeout=5000
+ignore-timeout=1

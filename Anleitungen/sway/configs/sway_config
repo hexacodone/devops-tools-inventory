@@ -1,0 +1,296 @@
+# Optimierte Sway Konfiguration v4 - Enhanced Tuxedo Edition
+# Farbpalette: #FFC4EB (Rosa), #197278 (Teal), #89CE94 (Grün), #2B2D42 (Dunkelblau), #000000 (Schwarz)
+# /home/hex/.config/sway/config
+
+### Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term foot
+set $menu wofi --show drun
+
+### Output configuration
+# Wallpaper
+output * bg ~/.config/sway/wallpapers/1341696.jpeg fill
+
+# Laptop-Display - ganz links
+output eDP-1 {
+    resolution 2560x1600@240Hz
+    position 0,0
+    scale 1.25
+    adaptive_sync off
+}
+
+# Neuer Iiyama Monitor (SN: 12428JR400792) - Mitte
+output "Iiyama North America PL2763Q 12428JR400792" {
+    resolution 2560x1440@100Hz
+    position 2048,0
+    scale 1.0
+    adaptive_sync off
+}
+
+# Alter Iiyama Monitor (SN: 12428JQ901271) - rechts
+output "Iiyama North America PL2763Q 12428JQ901271" {
+    resolution 2560x1440@100Hz
+    position 4608,0
+    scale 1.0
+    adaptive_sync off
+}
+
+### Idle configuration
+exec swayidle -w \
+         timeout 1800 'swaylock -f -c 2B2D42' \
+         timeout 2700 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 2B2D42'
+
+### Input configuration
+input type:touchpad {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+    scroll_method two_finger
+}
+
+input type:keyboard {
+    xkb_layout "us"
+    xkb_variant "altgr-intl"
+}
+
+### Basic Key bindings
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec $menu
+floating_modifier $mod normal
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Sway beenden?' -B 'Ja, beenden' 'swaymsg exit'
+bindsym $mod+Ctrl+l exec swaylock -f -c 2B2D42
+
+### NEW: Power Menu
+set $power_mode "Power: [l]ock [e]xit [s]uspend [r]eboot [p]oweroff"
+mode $power_mode {
+    bindsym l exec swaylock -f -c 2B2D42, mode "default"
+    bindsym e exec swaymsg exit, mode "default"
+    bindsym s exec systemctl suspend, mode "default"
+    bindsym r exec systemctl reboot, mode "default"
+    bindsym p exec systemctl poweroff, mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+p mode $power_mode
+
+### Tuxedo Function Keys - Audio (Fn+F6/F7/F8)
+# Fn+F6 = Mute
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && \
+    notify-send -t 1000 "🔇 Audio" "$(pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes' && echo 'Muted' || echo 'Unmuted')"
+
+# Fn+F7 = Volume Down (MAX 100%)
+bindsym XF86AudioLowerVolume exec sh -c '\
+    pactl set-sink-volume @DEFAULT_SINK@ -5%; \
+    VOL=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -o "[0-9]*%" | head -1); \
+    notify-send -t 800 "🔉 Volume" "$VOL"'
+
+# Fn+F8 = Volume Up (MAX 100%)
+bindsym XF86AudioRaiseVolume exec sh -c '\
+    CURRENT=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -o "[0-9]*%" | head -1 | tr -d "%"); \
+    if [ "$CURRENT" -lt 100 ]; then \
+        pactl set-sink-volume @DEFAULT_SINK@ +5%; \
+        [ $(pactl get-sink-volume @DEFAULT_SINK@ | grep -o "[0-9]*%" | head -1 | tr -d "%") -gt 100 ] && pactl set-sink-volume @DEFAULT_SINK@ 100%; \
+    fi; \
+    VOL=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -o "[0-9]*%" | head -1); \
+    notify-send -t 800 "🔊 Volume" "$VOL"'
+
+### Tuxedo Function Keys - Brightness (Fn+F1/F2) - TEST!
+# Fn+F1 = Dunkler
+bindsym XF86MonBrightnessDown exec sh -c '\
+    brightnessctl set 10%-; \
+    BRIGHT=$(brightnessctl | grep -o "[0-9]*%"); \
+    notify-send -t 800 "🔅 Brightness" "$BRIGHT"'
+
+# Fn+F2 = Heller
+bindsym XF86MonBrightnessUp exec sh -c '\
+    brightnessctl set +10%; \
+    BRIGHT=$(brightnessctl | grep -o "[0-9]*%"); \
+    notify-send -t 800 "☀️ Brightness" "$BRIGHT"'
+
+### Screenshot Controls - Komplettes System
+# 1. Vollbild-Screenshot (Print)
+bindsym Print exec sh -c '\
+    grim ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png && \
+    notify-send -t 2000 "📸 Screenshot" "Vollbild gespeichert in ~/Pictures"'
+
+# 2. Bereich auswählen und speichern (Shift+Print)
+bindsym Shift+Print exec sh -c '\
+    grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png && \
+    notify-send -t 2000 "📸 Screenshot" "Bereich gespeichert in ~/Pictures"'
+
+# 3. Bereich in Zwischenablage (Ctrl+Print)
+bindsym Ctrl+Print exec sh -c '\
+    grim -g "$(slurp)" - | wl-copy && \
+    notify-send -t 2000 "📋 Screenshot" "In Zwischenablage kopiert"'
+
+# 4. OCR Screenshot - Text extrahieren (Alt+Print) - benötigt tesseract
+bindsym Alt+Print exec sh -c '\
+    grim -g "$(slurp)" /tmp/ocr-screenshot.png && \
+    tesseract /tmp/ocr-screenshot.png - | wl-copy && \
+    rm /tmp/ocr-screenshot.png && \
+    notify-send -t 3000 "📝 OCR Screenshot" "Text in Zwischenablage kopiert"'
+
+# 5. Aktives Fenster screenshotten (Mod+Print)
+bindsym $mod+Print exec sh -c '\
+    grim -g "$(swaymsg -t get_tree | jq -r '"'"'.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"'"'"')" \
+    ~/Pictures/window-screenshot-$(date +%Y%m%d-%H%M%S).png && \
+    notify-send -t 2000 "📸 Window Screenshot" "Gespeichert in ~/Pictures"'
+
+### NEW: Focus Monitor directly
+bindsym $mod+Ctrl+1 focus output eDP-1
+bindsym $mod+Ctrl+2 focus output DP-10
+bindsym $mod+Ctrl+3 focus output DP-8
+
+### NEW: Move Window to specific Monitor
+bindsym $mod+Ctrl+Shift+1 move container to output eDP-1, focus output eDP-1
+bindsym $mod+Ctrl+Shift+2 move container to output DP-10, focus output DP-10
+bindsym $mod+Ctrl+Shift+3 move container to output DP-8, focus output DP-8
+
+### NEW: Swap Window with neighbor (left/right monitor)
+bindsym $mod+Ctrl+Left move container to output left, focus output left
+bindsym $mod+Ctrl+Right move container to output right, focus output right
+bindsym $mod+Ctrl+h move container to output left, focus output left
+bindsym $mod+Ctrl+Semicolon move container to output right, focus output right
+
+### Window Movement
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+### Workspaces
+workspace 1 output eDP-1
+workspace 2 output "Iiyama North America PL2763Q 12428JR400792"  # Neuer (Mitte)
+workspace 3 output "Iiyama North America PL2763Q 12428JQ901271"  # Alter (Rechts)
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+### NEW: Workspace back-and-forth
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab move container to workspace back_and_forth
+
+### Layout Controls
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+### Scratchpad
+bindsym $mod+Shift+BackSpace move scratchpad
+bindsym $mod+BackSpace scratchpad show
+
+### NEW: Emergency Actions
+# Force kill frozen window
+bindsym $mod+Shift+x exec swaymsg -t get_tree | jq '.. | select(.focused? == true) | .pid' | xargs kill -9
+
+# Restart waybar
+bindsym $mod+Shift+w exec killall waybar; exec waybar
+
+# Toggle idle inhibitor (for videos/presentations)
+bindsym $mod+i exec sh -c '\
+    if pgrep -x swayidle > /dev/null; then \
+        killall swayidle && notify-send -t 2000 "💤 Idle" "Disabled"; \
+    else \
+        swayidle -w timeout 1800 "swaylock -f -c 2B2D42" timeout 2700 "swaymsg output * power off" resume "swaymsg output * power on" before-sleep "swaylock -f -c 2B2D42" & \
+        notify-send -t 2000 "💤 Idle" "Enabled"; \
+    fi'
+
+### Resizing Mode
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+### Window Rules
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="blueman-manager"] floating enable
+for_window [app_id="nm-applet"] floating enable
+for_window [app_id="wdisplays"] floating enable
+
+### NEW: Picture-in-Picture handling
+for_window [title="Picture-in-Picture"] floating enable, sticky enable, resize set 640 360
+
+### Window Styling
+default_border pixel 2
+default_floating_border pixel 2
+gaps inner 2
+gaps outer 1
+smart_gaps on
+smart_borders on
+
+client.focused          #197278 #197278 #ffffff #000000 #197278
+client.focused_inactive #2B2D42 #2B2D42 #89CE94 #2B2D42 #2B2D42
+client.unfocused        #000000 #000000 #89CE94 #000000 #000000
+client.urgent           #FFC4EB #FFC4EB #000000 #FFC4EB #FFC4EB
+client.placeholder      #2B2D42 #2B2D42 #89CE94 #2B2D42 #2B2D42
+client.background       #2B2D42
+
+### Startup Applications
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec waybar
+exec mako
+
+# Camera setup
+exec systemctl --user restart pipewire pipewire-pulse wireplumber
+
+include /etc/sway/config.d/*
