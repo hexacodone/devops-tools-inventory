@@ -1,0 +1,193 @@
+/* Waybar Style - Neue Farbpalette mit Custom Modules */
+/* Farben: #FFC4EB (Rosa), #197278 (Teal), #89CE94 (Grün), #2B2D42 (Dunkelblau), #000000 (Schwarz) */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Source Code Pro", "Font Awesome 6 Free";
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #2B2D42;
+    border-bottom: 3px solid #197278;
+    color: #ffffff;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* Workspaces */
+#workspaces {
+    margin: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: #89CE94;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button:hover {
+    background: rgba(25, 114, 120, 0.3);
+    box-shadow: inset 0 -3px #FFC4EB;
+}
+
+#workspaces button.focused {
+    background-color: #197278;
+    border-bottom: 3px solid #FFC4EB;
+    color: #ffffff;
+}
+
+#workspaces button.urgent {
+    background-color: #FFC4EB;
+    color: #000000;
+}
+
+/* Window title */
+#window {
+    margin: 0 4px;
+    font-weight: bold;
+    color: #89CE94;
+}
+
+/* Mode indicator */
+#mode {
+    background-color: #197278;
+    border-bottom: 3px solid #FFC4EB;
+    margin: 0 4px;
+    padding: 0 8px;
+    color: #ffffff;
+}
+
+/* Right side modules - Basis */
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#custom-audio-output,
+#custom-audio-input,
+#custom-wifi {
+    padding: 0 10px;
+    margin: 0 2px;
+    color: #ffffff;
+}
+
+/* Custom Audio Output - Teal */
+#custom-audio-output {
+    background-color: #197278;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#custom-audio-output:hover {
+    background-color: #1a8088;
+}
+
+/* Custom Audio Input - Grün */
+#custom-audio-input {
+    background-color: #89CE94;
+    color: #000000;
+    font-weight: bold;
+}
+
+#custom-audio-input:hover {
+    background-color: #9ad6a4;
+}
+
+/* PulseAudio Volume */
+#pulseaudio {
+    background-color: #2B2D42;
+    color: #89CE94;
+    border: 1px solid #197278;
+}
+
+#pulseaudio.muted {
+    background-color: #000000;
+    color: #89CE94;
+}
+
+/* Custom WiFi - Rosa */
+#custom-wifi {
+    background-color: #FFC4EB;
+    color: #000000;
+    font-weight: bold;
+}
+
+#custom-wifi:hover {
+    background-color: #ffd4f0;
+}
+
+/* Network Info - Teal */
+#network {
+    background-color: #197278;
+    color: #ffffff;
+}
+
+#network.disconnected {
+    background-color: #000000;
+    color: #FFC4EB;
+}
+
+/* Clock - Teal */
+#clock {
+    background-color: #197278;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Battery - Grün */
+#battery {
+    background-color: #89CE94;
+    color: #000000;
+}
+
+#battery.charging, #battery.plugged {
+    background-color: #197278;
+    color: #ffffff;
+}
+
+@keyframes blink {
+    to {
+        background-color: #FFC4EB;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: #FFC4EB;
+    color: #000000;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* CPU - Grün */
+#cpu {
+    background-color: #89CE94;
+    color: #000000;
+}
+
+/* Memory - Rosa */
+#memory {
+    background-color: #FFC4EB;
+    color: #000000;
+}
+
+/* Tooltips */
+tooltip {
+    background: #2B2D42;
+    border: 1px solid #197278;
+    border-radius: 5px;
+}
+
+tooltip label {
+    color: #89CE94;
+}
