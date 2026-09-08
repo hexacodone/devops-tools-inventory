@@ -4,24 +4,26 @@
 
 ## 📋 Table of Contents
 
-### Core Technologies
-- [🐳 Containerization](docs/containerization.md) - Docker, Podman, Container Best Practices
-- [🔄 CI/CD](docs/cicd.md) - Jenkins, GitHub Actions, Pipeline Strategies
-- [🏗️ Infrastructure as Code](docs/infrastructure-as-code.md) - Terraform, Ansible, CloudFormation
-- [📊 Monitoring & Observability](docs/monitoring.md) - Prometheus, Grafana, ELK Stack
-- [☁️ Cloud Platforms](docs/cloud-platforms.md) - AWS, Azure, GCP Services
-- [🔧 Configuration Management](docs/configuration-management.md) - YAML, JSON, Environment Management
+### Tool Overviews (`docs/`)
+- [🔄 CI/CD Tools Comparison](docs/ci-cd-comparison.md) - Jenkins, GitLab CI, GitHub Actions
+- [📊 Monitoring Tools](docs/monitoring-tools.md) - Prometheus, Grafana
+- [🛡️ Security Tools](docs/security-tools.md) - Network security & vulnerability management
 
-### Development & Automation
-- [🔀 Version Control](docs/version-control.md) - Git Advanced, Branching Strategies
-- [🛡️ Security & Compliance](docs/security.md) - DevSecOps, Security Scanning, Compliance
-- [🎯 Automation & Scripting](docs/automation.md) - Bash, Python, PowerShell for DevOps
-- [📚 Quick Reference](docs/quick-reference.md) - Cheat Sheets, Common Commands
+### Guides (`docs/`)
+- [🔀 Git Cheat Sheet](docs/git/GitCheatSheet.md) - Comprehensive Git reference for DevOps
+- [🔑 GPG Commit Signing](docs/git/gpg_sheet.md) - GPG key setup, Git/GitHub/IntelliJ signing
+- [🐍 Python Virtual Environments](docs/python/python_environments.md) - venv, pip, requirements.txt
+- [📖 Python Learning Path](docs/python/guides/00_learning_path.md) - Beginner Python vocabulary series (fundamentals → modules → classes → inheritance)
+- [🐍 FastAPI Part 1: Hello World](docs/python/PythonFastAPI/pt1_FastAPI.md) - Minimal FastAPI app
+- [🐍 FastAPI Part 2: Path Parameters](docs/python/PythonFastAPI/pt2_FastAPI.md) - Path parameters & multiple routes
+- [🖥️ Sway Window Manager Setup](docs/sway/sway_configuration.md) - Installation & configuration on Ubuntu
+- [💻 Zsh Setup](docs/zsh-configuration/zsh.md) - Oh My Zsh, Powerlevel10k, fzf
+- [🗣️ Verbi Voice Assistant](docs/Verbi_voice_assistant/verbi_setup.md) - Offline multilingual voice assistant
+- [🖧 Proxmox Boot Fix](docs/Proxmox_Versions.md) - Fixing a GRUB/UEFI boot issue after an update
 
-### Learning & Development
-- [📖 Learning Notes](docs/learning-notes.md) - Progress Tracking, Challenges, Solutions
-- [🏆 Certifications](docs/certifications.md) - Planned & Completed Certifications
-- [🚀 Projects](docs/projects.md) - Hands-on Projects & Labs
+### Definitions (`definitions/`)
+- [💻 Computer Science Glossary](definitions/CSglossary.md) - A-Z glossary of CS terms
+- [🌐 Distributed Systems Glossary](definitions/DistributedSystemsTechnicalGlossary.md) - A-Z glossary of distributed systems terms
 
 ## 🔗 Quick Links
 

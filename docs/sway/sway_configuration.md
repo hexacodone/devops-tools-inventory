@@ -44,8 +44,8 @@ mkdir -p ~/.config/waybar
 Create the main Sway configuration file:
 ```bash
 cat > ~/.config/sway/config << 'EOF'
-# Optimierte Sway Konfiguration mit neuer Farbpalette
-# Farbpalette: #FFC4EB (Rosa), #197278 (Teal), #89CE94 (Grün), #2B2D42 (Dunkelblau), #000000 (Schwarz)
+# Optimized Sway configuration with a new color palette
+# Color palette: #FFC4EB (Pink), #197278 (Teal), #89CE94 (Green), #2B2D42 (Dark blue), #000000 (Black)
 
 ### Variables
 set $mod Mod4
@@ -87,7 +87,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exec swaynag -t warning -m 'Sway beenden?' -B 'Ja, beenden' 'swaymsg exit'
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -B 'Yes, exit' 'swaymsg exit'
 bindsym $mod+Ctrl+l exec swaylock -f -c 2B2D42
 
 # Moving around:
@@ -164,13 +164,13 @@ for_window [window_role="bubble"] floating enable
 for_window [window_role="dialog"] floating enable
 for_window [window_type="dialog"] floating enable
 
-### Fenster-Styling mit neuer Farbpalette
+### Window styling with the new color palette
 default_border pixel 2
 default_floating_border pixel 2
 gaps inner 5
 gaps outer 2
 
-# Fensterfarben basierend auf der Farbpalette
+# Window colors based on the color palette
 client.focused          #197278 #197278 #ffffff #000000 #197278
 client.focused_inactive #2B2D42 #2B2D42 #89CE94 #2B2D42 #2B2D42
 client.unfocused        #000000 #000000 #89CE94 #000000 #000000
@@ -307,8 +307,8 @@ EOF
 Create the Waybar style file:
 ```bash
 cat > ~/.config/waybar/style.css << 'EOF'
-/* Waybar Style - Neue Farbpalette */
-/* Farben: #FFC4EB (Rosa), #197278 (Teal), #89CE94 (Grün), #2B2D42 (Dunkelblau), #000000 (Schwarz) */
+/* Waybar Style - New color palette */
+/* Colors: #FFC4EB (Pink), #197278 (Teal), #89CE94 (Green), #2B2D42 (Dark blue), #000000 (Black) */
 
 * {
     border: none;
