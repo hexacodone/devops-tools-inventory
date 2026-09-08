@@ -1,0 +1,10 @@
+# Python Learning Path — Part 4: Inheritance & Class Tools
+
+Extending classes, and the tools Python gives you for organizing and constraining them. Grounded in `temp/detection_rule.py`.
+
+- **inheritance** — When a class is built "on top of" another one, e.g. `class Logsource(BaseModel):`. `Logsource` *is a* `BaseModel` and automatically gets all of its behavior, without rewriting it. The class in parentheses is the parent (a.k.a. base class).
+- **`BaseModel`** — Pydantic's parent class, and a concrete example of inheritance in action. A class that inherits from it gets an automatic constructor and type-checking just from listing its attributes — no `__init__` needed, because `BaseModel` already provides one.
+- **decorator** — A `@something` line placed directly above a `def`, which wraps that function/method to change or add behavior. You've seen `@app.get("/")` (FastAPI) and `__init__`-style special methods; here it's `@classmethod` (the method receives the class itself, not an instance) and `@model_validator(mode="before")` (a Pydantic decorator meaning "run this to clean up raw data before building the object").
+- **constant** — A variable meant to never change after it's set. No special Python syntax for this — it's a naming convention: write it in `ALL_CAPS`, e.g. `VALID_LEVEL = ["informational", "low", "medium", "high", "critical"]`.
+- **`Enum`** — A class defining a fixed, closed menu of named options — used when a value must be exactly one of a small known set, nothing else. `CustomizedRule(Enum)` says a rule's status is always one of `BASE_RULE`, `DERIVED_RULE`, `CUSTOMER_RULE`, or `NOT_CUSTOMIZED` — never some other string someone typos. Constants (a plain list) and `Enum` (a class) are two different ways to say "only these values are allowed" — the same file uses both, for different purposes.
+- **leading underscore (`_name`)** — A naming convention (not enforced by Python — it still works if you ignore it) signaling "internal to this module, not meant to be used from outside," e.g. `_detect_relationship`, `_REQUIRED_FIELDS`.
